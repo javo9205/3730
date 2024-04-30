@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[letterpaper,margin=0.5in]{geometry}
+\usepackage[sfdefault]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tabularx}
+\usepackage{parskip}
+
+\newcommand*{\Indent}{\hspace*{1cm}}
+
+\begin{document}
+\setlength\parindent{0pt}
+
+%=============================================================
+% Header
+%=============================================================
+\noindent
+\rule{\textwidth}{2.5pt}\\
+\begin{tabularx}{\textwidth}{>{\bfseries}l >{\bfseries\centering}X >{\bfseries}r}
+ECEN 3730   & Practical PCB Design \& Manufacture & Professor Tim Swettlten\\
+Spring 2024 & Board 3 Report                      & James K Vogenthaler
+\end{tabularx}\\
+\rule{\textwidth}{1.5pt}
+
+%=============================================================
+\section*{Plan of Record}
+%=============================================================
+\subsection*{Objective}
+The \textit{Golden Arduino} will be a custom redesign of the popular Arduino R3 utilizing best design practices to maximize power and signal integrity (PI/SI).  This entails employing a combination of design choices such as:
+\vspace*{2mm}\\
+\Indent (1) The placement of decoupling capacitors next to all power pins;\\
+\Indent (2) A continuous ground plane to minimize the impedance of return paths;\\
+\Indent (3) The placement of ground vias to minimize return paths wherever possible.
+\vspace*{2mm}\\
+In particular, special attention will paid toward the differences in switching noise and near-field emissions between this board's design and a commercial Arduino R3 board design using a specialized "noise shield" which has been engineered to draw a large amount of current in a short amount of time.
+
+\Indent Finally, features will added expressly for risk mitigation or bring up testing.
+A TVS IC will be introduced to protect sensitive components from the effects of electrostatic discharge (ESD).
+Additionally, isolation switches, test points, and indicator LEDs will be placed throughout the design to aid in debugging and bring up testing.
+
+%-----------------------------------------
+\subsection*{Introduction}
+%-----------------------------------------
+Switching noise is a phenomenon seen along a or between nearby signal traces due to inductive or capactive cross-talk. 
+
+\Indent The first type of noise that this design seeks to mitigate is known as \textit{power rail collapse}, and occurs when there is a sudden draw of current on the power rail.
+The change in current over time (dI/dt) that passes through the power rail's parasitic inductance temporarily causes a voltage drop, and similarly a voltage spike can be observed when the current suddenly stops, which is then passed along to any accompanying load.
+This type of switching noise can be dramatically reduced through the use of decoupling capacitors to decouple nearby loads from the inductance of the supplying trace.
+
+\Indent The second type of noise this design seeks to mitigate is known as \textit{ground bounce}, and similarly occurs due to changing currents passing through the parasitic inductance of the signal's return path, and can is compounded with each signal that shares this return path. 
+This kind of noise can be reduced through the usage of a solid ground plane, which both minimizes the impedance of and distributes the return path of any connected signals.
+
+\Indent Finally, the third type of noise this design seeks to mitigate are the range of \textit{near field emissions} which can extend much farther than intended when there is a large separation between signals and their return paths.
+All interconnects will exhibit some near field electromagnetic interference, but their effect can be reduced through the placement of ground vias wherever possible.
+
+%-----------------------------------------
+\subsection*{Component Selection}
+%-----------------------------------------
+- ATMEGA328P
+- 5.0V and 3.3V LDO (Low Dropout regulators)
+- 
+
+\section*{Design, Assembly, \& Bring Up}
+
+\section*{Analysis \& Conclusions}
+
+\end{document}
